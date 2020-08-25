@@ -1,0 +1,12 @@
+States:
+    follow line
+        Drive foward and adjust to stay on line
+
+    Looking for line
+
+    Fallen off line
+
+    Backtrack
+
+State Transitions
+    Looking for line -> follow line -> fallen off line -> backtrack -> on line
