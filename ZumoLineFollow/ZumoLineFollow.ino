@@ -1,8 +1,13 @@
+#pragma region Includes
 #include <Wire.h>
 #include <ZumoShield.h>
+#pragma endregion Includes
 
+
+#pragma region Variable Declarations
 #define NUM_SENSORS 6
 #define MAX_REFLECTANCE 2000
+#define LINE_THRESHOLD 3500
 
 ZumoMotors motors;
 ZumoReflectanceSensorArray reflectanceSensors;
@@ -15,14 +20,59 @@ const int Turn90 = 150;
 
 unsigned int sensor_values[NUM_SENSORS];
 
+
 enum state {
   followingLine,
   lookingForLine,
   backTracking
 };
 state roboState;
+#pragma endregion Variable Declarations
 
+
+#pragma region State Methods
 void followLine()
+{
+  updateLineValues();
+  motors.setSpeeds(scale(rightValue, MAX_REFLECTANCE*(NUM_SENSORS/3), maxSpeed), scale(leftValue, MAX_REFLECTANCE*(NUM_SENSORS/3), maxSpeed));
+  checkState();
+}
+
+void findLine()
+{
+  motors.setSpeeds(0,0);
+
+  //Try spinning to find the line
+  while(roboState == lookingForLine)
+  {
+    spinLeft(100);
+    updateLineValues();    
+    checkState();
+  }
+  motors.setSpeeds(0,0);
+}
+
+void backTrack()
+{
+
+}
+
+void checkState()
+{
+    if(leftValue > LINE_THRESHOLD && rightValue > LINE_THRESHOLD)
+    {
+      roboState = followingLine;
+    }
+    else if(leftValue < LINE_THRESHOLD || rightValue < LINE_THRESHOLD)
+    {
+      roboState = lookingForLine;
+    }
+}
+#pragma endregion State Methods
+
+
+#pragma region Functional Methods
+void updateLineValues()
 {
   leftValue = 0;
   rightValue = 0;
@@ -35,30 +85,24 @@ void followLine()
   {
     rightValue += sensor_values[i];
   }  
-
-  motors.setSpeeds(scale(rightValue, MAX_REFLECTANCE*(NUM_SENSORS/3), maxSpeed), scale(leftValue, MAX_REFLECTANCE*(NUM_SENSORS/3), maxSpeed));
 }
 
-void findLine()
+void spinLeft(int speed)
 {
-
+  motors.setSpeeds(speed, speed*-1);
 }
+#pragma endregion Functional Methods
 
-void backTrack()
-{
 
-}
-
-void spin()
-{
-  motors.setSpeeds(400, -400);
-}
-
+#pragma region Calculation Methods
 int scale (int value, int maxOld, int maxNew)
 {
   return (value / (maxOld / maxNew));
 }
+#pragma endregion
 
+
+#pragma region Other Methods
 void debug()
 {
   Serial.print(leftValue);
@@ -69,16 +113,20 @@ void debug()
   Serial.print(" | ");
   Serial.print(rightValue / (MAX_REFLECTANCE*3/maxSpeed));
   Serial.println();
+  Serial.println(roboState);
   Serial.println("---------------------------------");
 }
+#pragma endregion Other Methods
 
-//Setup Method
+
+#pragma region Default Methods
 void setup() {
   Serial.begin(9600);
   reflectanceSensors.init();
+
+  roboState = lookingForLine;
 }
 
-//Main Loop
 void loop() {    
   reflectanceSensors.read(sensor_values);
 
@@ -97,8 +145,9 @@ void loop() {
       break;
 
     default:
-      spin();
+      spinLeft(400);
       break;
   }
   debug();
 }
+#pragma endregion Default Methods
