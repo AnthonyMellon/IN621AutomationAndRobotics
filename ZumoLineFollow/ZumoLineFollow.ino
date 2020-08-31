@@ -22,8 +22,8 @@ unsigned int sensor_values[NUM_SENSORS];
 
 
 enum state {
-  followingLine,
-  lookingForLine,
+  inEarth,
+  inAether,
   backTracking
 };
 state roboState;
@@ -38,7 +38,7 @@ void followLine()
   checkState();
 }
 
-void findLine()
+void escapeAether()
 {
   updateLineValues();
   if (leftValue == MAX_REFLECTANCE*3)
@@ -70,11 +70,11 @@ void checkState()
 {
     if(leftValue > LINE_THRESHOLD && rightValue > LINE_THRESHOLD)
     {
-      roboState = followingLine;
+      roboState = inEarth;
     }
     else if(leftValue < LINE_THRESHOLD && rightValue < LINE_THRESHOLD)
     {
-      roboState = lookingForLine;
+      roboState = inAether;
     }
 }
 #pragma endregion State Methods
@@ -133,7 +133,7 @@ void setup() {
   Serial.begin(9600);
   reflectanceSensors.init();
 
-  roboState = lookingForLine;
+  roboState = inAether;
 }
 
 void loop() {    
@@ -141,12 +141,12 @@ void loop() {
 
   switch (roboState)
   {
-    case followingLine:
+    case inEarth:
       followLine();
       break;
 
-    case lookingForLine:
-      findLine();
+    case inAether:
+      escapeAether();
       break;
 
     case backTracking:

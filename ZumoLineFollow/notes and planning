@@ -1,12 +1,19 @@
-States:
-    follow line
-        Drive foward and adjust to stay on line
+On line <- safe zone
+    Follow line. ez
 
-    Looking for line
+In void <- unhappy zone
+    Drive foward until on line or in aether
 
-    Fallen off line
+In aether <- danger zone
+    Just entered aether
+        Spin until a *new* line is found
+        If no *new* line is found, transition to 'Lost in aether' state
+    Lost in aether
+        spiral until any line is found
 
-    Backtrack
 
-State Transitions
-    Looking for line -> follow line -> fallen off line -> backtrack -> on line
+
+On line -> in aether -> just entered aether -> On line
+On line -> in aether -> just enetered aether -> lost in aether -> On line
+On line -> in void -> on line
+On line -> in void -> Just entered aether -> ...
