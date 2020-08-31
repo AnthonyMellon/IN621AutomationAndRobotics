@@ -40,21 +40,30 @@ void followLine()
 
 void findLine()
 {
-  motors.setSpeeds(0,0);
-
-  //Try spinning to find the line
-  while(roboState == lookingForLine)
+  updateLineValues();
+  if (leftValue == MAX_REFLECTANCE*3)
   {
-    spinLeft(100);
-    updateLineValues();    
-    checkState();
+    motors.setSpeeds(0, 400);    
   }
-  motors.setSpeeds(0,0);
+  else if (rightValue == MAX_REFLECTANCE*3)
+  {
+    motors.setSpeeds(400, 0);    
+  }
+  else if (rightValue < LINE_THRESHOLD && leftValue < LINE_THRESHOLD)
+  {
+    motors.setSpeeds(-400, -400);
+  }
+  else if (rightValue == MAX_REFLECTANCE*3 && leftValue == MAX_REFLECTANCE*3)
+  {
+    motors.setSpeeds(400, 0);
+  }
+  updateLineValues();
+  checkState();
 }
 
 void backTrack()
 {
-
+  Serial.println("Back Track");
 }
 
 void checkState()
@@ -63,7 +72,7 @@ void checkState()
     {
       roboState = followingLine;
     }
-    else if(leftValue < LINE_THRESHOLD || rightValue < LINE_THRESHOLD)
+    else if(leftValue < LINE_THRESHOLD && rightValue < LINE_THRESHOLD)
     {
       roboState = lookingForLine;
     }
@@ -87,9 +96,9 @@ void updateLineValues()
   }  
 }
 
-void spinLeft(int speed)
+void Spiral(int speed, int size)
 {
-  motors.setSpeeds(speed, speed*-1);
+  motors.setSpeeds(speed+size, speed*-1);
 }
 #pragma endregion Functional Methods
 
@@ -145,7 +154,7 @@ void loop() {
       break;
 
     default:
-      spinLeft(400);
+      Spiral(400, 0);
       break;
   }
   debug();
