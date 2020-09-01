@@ -22,7 +22,7 @@ unsigned int sensor_values[NUM_SENSORS];
 
 
 enum state {
-  inEarth,
+  onLine,
   inAether,
   backTracking
 };
@@ -70,7 +70,7 @@ void checkState()
 {
     if(leftValue > LINE_THRESHOLD && rightValue > LINE_THRESHOLD)
     {
-      roboState = inEarth;
+      roboState = onLine;
     }
     else if(leftValue < LINE_THRESHOLD && rightValue < LINE_THRESHOLD)
     {
@@ -141,7 +141,7 @@ void loop() {
 
   switch (roboState)
   {
-    case inEarth:
+    case onLine:
       followLine();
       break;
 

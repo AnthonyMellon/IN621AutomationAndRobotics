@@ -1,0 +1,20 @@
+0 1 1 1 1 0
+Follow the line
+
+0 1 1 1 1 1
+prepare to turn left
+    Drive foward untill 0 0 0 0 0 0
+    then turn
+
+1 1 1 1 1 0
+prepare to turn right
+    Drive foward untill 0 0 0 0 0 0
+    then turn
+
+0 0 0 0 0 0
+turn
+    turn in determined direction untill 0 1 1 1 1 1 or 1 1 1 1 1 0
+    then follow line
+
+
+

@@ -14,7 +14,7 @@ unsigned int sensor_values[NUM_SENSORS];
 unsigned int leftValue, rightValue;
 
 enum state {
-  inEarth, //on the line
+  onLine, //on the line
   justEnteredAether, //only just fell onto the whitespace, still hope to get back on the line
   lostInAether, //completely lost in the whitespace
   inVoid, //on the blackspace
@@ -35,7 +35,7 @@ void loop() {
 
   switch (roboState)
   {
-    case inEarth:
+    case onLine:
         followLine();
         break;
 
@@ -71,10 +71,10 @@ state checkState()
 
         if(sensor_values[i] > LINE_THRESHOLD)
         {
-            tempState = inEarth;
+            tempState = onLine;
         }        
     } 
-    if(tempState != inEarth) //If the robot is not considered to be on earth after all that, it must be in the aether
+    if(tempState != onLine) //If the robot is not considered to be on earth after all that, it must be in the aether
     {
         tempState = justEnteredAether;
     }    
