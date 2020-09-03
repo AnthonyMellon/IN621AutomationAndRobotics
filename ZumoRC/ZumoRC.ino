@@ -33,11 +33,11 @@ void loop() {
     }
     else if (input == "D")
     {
-        zMotors.setSpeeds(200, -200);
+        zMotors.setSpeeds(100, -100);
     }
     else if (input == "A")
     {
-        zMotors.setSpeeds(-200, 200);
+        zMotors.setSpeeds(-100, 100);
     }
     else if (input == "F")
     {
@@ -48,10 +48,9 @@ void loop() {
     output = "";
     for(int i = 0; i < NUM_SENSORS; i++)
     {
-        output += i;
-        output += ":";
         output += sensor_values[i];
-        output += ";";
+        output += ",";
     }
-    Serial.println(output);
+    Serial.println(output);  
+    delay(15);
 }

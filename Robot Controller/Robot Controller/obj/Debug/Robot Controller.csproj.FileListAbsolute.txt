@@ -8,3 +8,12 @@ C:\Users\Anthony\Documents\Polytech\Year 2\IN621AutomationAndRobotics\Robot Cont
 C:\Users\Anthony\Documents\Polytech\Year 2\IN621AutomationAndRobotics\Robot Controller\Robot Controller\obj\Debug\Robot Controller.csproj.CoreCompileInputs.cache
 C:\Users\Anthony\Documents\Polytech\Year 2\IN621AutomationAndRobotics\Robot Controller\Robot Controller\obj\Debug\Robot Controller.exe
 C:\Users\Anthony\Documents\Polytech\Year 2\IN621AutomationAndRobotics\Robot Controller\Robot Controller\obj\Debug\Robot Controller.pdb
+D:\The Gibbon\Documents\Polytech\IN621AutomationAndRobotics\Robot Controller\Robot Controller\bin\Debug\Robot Controller.exe.config
+D:\The Gibbon\Documents\Polytech\IN621AutomationAndRobotics\Robot Controller\Robot Controller\bin\Debug\Robot Controller.exe
+D:\The Gibbon\Documents\Polytech\IN621AutomationAndRobotics\Robot Controller\Robot Controller\bin\Debug\Robot Controller.pdb
+D:\The Gibbon\Documents\Polytech\IN621AutomationAndRobotics\Robot Controller\Robot Controller\obj\Debug\Robot Controller.csprojAssemblyReference.cache
+D:\The Gibbon\Documents\Polytech\IN621AutomationAndRobotics\Robot Controller\Robot Controller\obj\Debug\Robot_Controller.Form1.resources
+D:\The Gibbon\Documents\Polytech\IN621AutomationAndRobotics\Robot Controller\Robot Controller\obj\Debug\Robot_Controller.Properties.Resources.resources
+D:\The Gibbon\Documents\Polytech\IN621AutomationAndRobotics\Robot Controller\Robot Controller\obj\Debug\Robot Controller.csproj.GenerateResource.cache
+D:\The Gibbon\Documents\Polytech\IN621AutomationAndRobotics\Robot Controller\Robot Controller\obj\Debug\Robot Controller.exe
+D:\The Gibbon\Documents\Polytech\IN621AutomationAndRobotics\Robot Controller\Robot Controller\obj\Debug\Robot Controller.pdb
