@@ -88,6 +88,7 @@ void checkState()
     }
 
 
+    //reset the spiral timer when the robot falls out of the spiral
     if(roboState != SSpiral)
     {
         spiralTime = 0;
