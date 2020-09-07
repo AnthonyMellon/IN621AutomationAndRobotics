@@ -4,7 +4,7 @@
 #define NUM_SENSORS 6
 #define SINGLE_ON_LINE_THRESHOLD 1200
 #define MAX_SPEED 200
-#define SPIRAL_DELAY 10
+#define SPIRAL_DELAY 50
 #define MAX_REFLECTANCE 2000
 
 uint8_t numSensorsOnLine;
