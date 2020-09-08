@@ -1,6 +1,10 @@
 #include <Wire.h>
 #include <ZumoShield.h>
+#include <Adafruit_NeoPixel.h>
 
+#define NEON_PIN 3
+#define NLIGHTS 8
+#define NEON_SPEED 5
 #define NUM_SENSORS 6
 #define SINGLE_ON_LINE_THRESHOLD 1200
 #define MAX_SPEED 200
@@ -10,11 +14,21 @@
 uint8_t numSensorsOnLine;
 uint64_t spiralTime;
 
+
 unsigned int sensorValues[NUM_SENSORS];
 unsigned int leftSensorValue;
 unsigned int rightSensorValue;
 unsigned int leftSpeed;
 unsigned int rightSpeed;
+
+//neon lights
+int neon_red;
+int neon_green;
+int neon_blue;
+int neon_hue;
+float neon_repeats;
+uint32_t neon_rgbColour;
+Adafruit_NeoPixel neonKit(NLIGHTS, NEON_PIN, NEO_GRB + NEO_KHZ800);
 
 enum direction
 {
@@ -38,12 +52,21 @@ ZumoReflectanceSensorArray zReflectorSensors;
 void setup()
 {
     zReflectorSensors.init();
+
+    neon_blue = 0;
+    neon_green = 0;
+    neon_red = 0;
+    neon_hue = 0;
+    neon_repeats = 0.25;
+
+    neonKit.begin();
 }
 
 void loop()
 {
     checkSensors();
     checkState();
+    updateNeons();
 
     switch (roboState)
     {
@@ -178,4 +201,15 @@ void Spiral() //spiral outwards
             spiralTime = MAX_SPEED;
         }
         delay(SPIRAL_DELAY);
+}
+
+void updateNeons()
+{
+    neon_rgbColour = neonKit.ColorHSV(neon_hue);
+    for(int i = 0; i < NLIGHTS; i++)
+    {        
+        neonKit.setPixelColor(i, neon_rgbColour);         
+    } 
+    neonKit.show();   
+    neon_hue += NEON_SPEED; 
 }
